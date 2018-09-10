@@ -1,31 +1,78 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using System.Activities.Statements
+@model IEnumerable<Varta_Exercises.Models.Henkilo>
+@{ 
+    ViewBag.Title = "Varta Exercises";
+    int pisteTotal = 0; // Muuttuja johon lisätään jokaisen henkilö-objektin pisteet.
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <h1>Tehtävä 1</h1>
+    <div class="col-md-6">
+        <h3>Lomake</h3>
+        <form>
+            <div class="form-group">
+                <label>Etunimi</label>
+                <input class="form-control" id="etuNimi">
+            </div> 
+            <div class="form-group">
+                <label>Sukunimi</label>
+                <input class="form-control" id="sukuNimi">
+            </div>   
+            <div class="form-group">
+                <input type="checkbox" id="valinta1"/>
+                <label for="valinta1"> Hyväksyn ehdot</label>
+            </div>
+            <div class="form-group">
+                <label>Valintani</label>
+                <select class="form-control" id="alasveto1">
+                    <option>Juu</option>
+                    <option>Kyllä</option>
+                    <option>Ei</option>
+                    <option>Ehkä</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default">Lähetä</button>
+        </form>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-6">
+        <h3>Taulukko</h3>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Etunimi</th>
+                <th scope="col">Sukunimi</th>
+                <th scope="col">Pisteet</th>
+            </tr>
+            </thead>
+            <tbody>
+            
+            @foreach (var h in Model) // Henkilöt lista puretaan taulukkoon.
+            {
+                <tr>
+                    <th scope="row">@h.ID</th>    
+                    <td>@h.ENimi</td>   
+                    <td>@h.SNImi</td>
+                    <td>@h.Pisteet</td>
+                </tr>
+                pisteTotal += @h.Pisteet; // Jokaisen henkilön pisteet lisätään pisteTotal-muuttujaan joka kirjoitetaan lopuksi Total-riville.
+            }
+            
+            <tr class="bg-info">
+                <th scope="row">Total</th>
+                <td></td>
+                <td></td>
+                <td>@pisteTotal</td>
+            </tr>
+            
+            
+            
+            </tbody>
+            
+            
+            
+            
+
+        </table>
     </div>
 </div>
