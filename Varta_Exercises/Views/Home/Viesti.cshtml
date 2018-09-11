@@ -1,0 +1,11 @@
+﻿@model Varta_Exercises.Models.Viesti
+@{
+    ViewBag.Title = "Viesti";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*Kirjoitetaan viestisivulle lomakkeesta parsittu data, nämä olisi tietenkin voinut parsia kasaan aiemminkin niin näyttäisi paremmalta.*@
+
+<h4>Hei, @(Model.Nimi == null ? "nimetön" : Model.Nimi). @Model.Valinta1 @Model.Valinta2 @Model.Valinta3 @Model.Valinta4 @Model.Valinta5</h4>
+

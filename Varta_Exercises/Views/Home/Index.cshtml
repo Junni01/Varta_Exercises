@@ -1,8 +1,9 @@
 ﻿@using System.Activities.Statements
-@model IEnumerable<Varta_Exercises.Models.Henkilo>
+@using Varta_Exercises.Models
+@model Viesti
 @{ 
     ViewBag.Title = "Varta Exercises";
-   
+
 }
 
 <script>
@@ -49,20 +50,149 @@
 
 </script>
 
-
+@*Lomake jolta tiedot Viesti modeliin saadaan. Mietin että tässä olisi ollut varmaan voinut käyttää muutakin kun puhtaita string muuttujia. Esim enum?*@ 
 <div class="row">
-    <h1>Tehtävä 3</h1>
+    <h1>Tehtävä 4</h1>
     <div class="col-md-6">
         <h3>Lomake</h3>
-        <form>
+        @using (Html.BeginForm("Viesti", "Home"))
+        {
+
+            <div class="form-group">
+                @Html.Label("Nimi")
+                @Html.TextBoxFor(model => model.Nimi, new {@class = "form-control"})
+
+            </div>
+            <div class="form-group">
+                <h4>Oletko mies vai nainen?</h4>
+
+                <div class="radio">
+                    <label for="Valinta1">
+                        @Html.RadioButtonFor(model => model.Valinta1, "Olet siis mies joka ", new { @class = "radio-inline", @checked = "true" })
+                        Mies
+                    </label>
+                </div>
+                <div class="radio">
+                    
+                    <label for="Valinta1">
+                        @Html.RadioButtonFor(model => model.Valinta1, "Olet siis nainen joka ", new { @class = "radio-inline" })
+                        Nainen
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <h4>Pidätkö lautapeleistä?</h4>
+
+                <div class="radio">
+                    <label for="Valinta2">
+                        @Html.RadioButtonFor(model => model.Valinta2, "pitää lautapeleistä, ", new { @class = "radio-inline", @checked = "true" })
+                        Kyllä
+                    </label>
+                </div>
+                <div class="radio">
+                    
+                    <label for="Valinta2">
+                        @Html.RadioButtonFor(model => model.Valinta2, "ei pidä lautapeleistä, ", new { @class = "radio-inline" })
+                        En
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <h4>Lempijuomasi?</h4>
+
+                <div class="radio">
+                    <label for="Valinta3">
+                        @Html.RadioButtonFor(model => model.Valinta3, "rentoutuu oluen kanssa ja", new { @class = "radio-inline", @checked = "true" })
+                        Olut
+                    </label>
+                </div>
+                <div class="radio">
+                    
+                    <label for="Valinta3">
+                        @Html.RadioButtonFor(model => model.Valinta3, "nautiskelee mielellään hyvää viiniä ja", new { @class = "radio-inline" })
+                        Viini
+                    </label>
+                </div>
+                <div class="radio">
+                    
+                    <label for="Valinta3">
+                        @Html.RadioButtonFor(model => model.Valinta3, "tykkää vetää kunnolla vodkaa ja ", new { @class = "radio-inline", @checked = "true" })
+                        Vodka
+                    </label>
+                </div>
+                
+                <div class="radio">
+                    
+                    <label for="Valinta3">
+                        @Html.RadioButtonFor(model => model.Valinta3, "ei pelkää laatudrinkkejä ja ", new { @class = "radio-inline" })
+                        Gin & Tonic
+                    </label>
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                <h4>Pidätkö eläimistä?</h4>
+
+                <div class="radio">
+                    <label for="Valinta4">
+                        @Html.RadioButtonFor(model => model.Valinta4, "rakastaa eläimiä.", new { @class = "radio-inline", @checked = "true" })
+                        Kyllä
+                    </label>
+                </div>
+                <div class="radio">
+                    
+                    <label for="Valinta4">
+                        @Html.RadioButtonFor(model => model.Valinta4, "vihaa eläimiä.", new { @class = "radio-inline" })
+                        En
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <h4>Olitko rehellinen?</h4>
+
+                <div class="radio">
+                    <label for="Valinta5">
+                        @Html.RadioButtonFor(model => model.Valinta5, "", new { @class = "radio-inline", @checked = "true" })
+                        Kyllä, vannon.
+                    </label>
+                </div>
+                <div class="radio">
+                    
+                    <label for="Valinta5">
+                        @Html.RadioButtonFor(model => model.Valinta5, "(oletettavasti)", new { @class = "radio-inline" })
+                        En, heh heh.
+                    </label>
+                </div>
+
+            </div>
+
+
+         
+
+
+
+            <button type="submit" class="btn btn-primary" value="Viesti">Lähetä</button>
+        }
+
+
+
+        @*<form>
             <div class="form-group">
                 <label>Etunimi</label>
                 <input class="form-control" id="etuNimi">
-            </div> 
+            </div>
             <div class="form-group">
                 <label>Sukunimi</label>
                 <input class="form-control" id="sukuNimi">
-            </div>   
+            </div>
             <div class="form-group">
                 <input type="checkbox" id="valinta1"/>
                 <label for="valinta1"> Hyväksyn ehdot</label>
@@ -77,7 +207,7 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-default">Lähetä</button>
-        </form>
+        </form>*@
     </div>
     <div class="col-md-6">
         <h3>Taulukko</h3>

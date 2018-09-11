@@ -12,23 +12,19 @@ namespace Varta_Exercises.Controllers
         public ActionResult Index()
         {
 
-
-
-
-            var henkilot = new List<Henkilo>(); // Luodaan listi Henkilöiost johon lisätään dataa.
-
-            henkilot.Add(new Henkilo { ID = 1, ENimi = "Saku", SNImi = "Junni", Pisteet = 20});
-            henkilot.Add(new Henkilo { ID = 2, ENimi = "Pekka", SNImi = "Levänen", Pisteet = 27});
-            henkilot.Add(new Henkilo { ID = 3, ENimi = "Jukka", SNImi = "Raatikainen", Pisteet = 23});
-            henkilot.Add(new Henkilo { ID = 4, ENimi = "Timo", SNImi = "Salmi", Pisteet = 28});
-            henkilot.Add(new Henkilo { ID = 5, ENimi = "Simo", SNImi = "Niemi", Pisteet = 30});
-
-            return View(henkilot); // Lähetetään henkilölista Viewiin. 
+            return View(); 
         }
 
+        // Lähetetään viesti viewiin täytetty viesti-modeli jonka data on saatu lomakkeesta.
+        [HttpPost]
+        public ActionResult Viesti(Viesti viesti)
+        {
 
+           
+            var uusiViesti = viesti; // Tämä on turha.
 
-
+            return View(uusiViesti);
+        }
 
         //public ActionResult About()
         //{
