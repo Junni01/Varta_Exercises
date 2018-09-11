@@ -1,6 +1,6 @@
 ﻿@using System.Activities.Statements
 @using Varta_Exercises.Models
-@model Viesti
+@model IEnumerable<Varta_Exercises.Models.Tuote>
 @{ 
     ViewBag.Title = "Varta Exercises";
 
@@ -25,161 +25,72 @@
         }
     );
     
-    $(document).ready(
+    //$(document).ready(
 
-        // Tässä haetaan avoimesta rajapinnasta vitsejä taulukkoon.
-        function () {
+    //    // Tässä haetaan avoimesta rajapinnasta vitsejä taulukkoon.
+    //    function () {
 
-            var $taulukko = $('#taulukko1');
+    //        var $taulukko = $('#taulukko1');
 
-            $.ajax({
-                type: 'GET',
-                url: 'https://08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_ten',
-                success: function(jokes) {
-                    //console.log('success', jokes);
-                    $.each(jokes,
-                        function(i, joke) {
-                            $taulukko.append('<tr>' + '<th>' + joke.id + '</th>' + '<td>' + joke.type + '</td>' + '<td>' + joke.setup + '</td>' + '<td>' + joke.punchline + '</td>' + '</tr>');
+    //        $.ajax({
+    //            type: 'GET',
+    //            url: 'https://08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_ten',
+    //            success: function(jokes) {
+    //                //console.log('success', jokes);
+    //                $.each(jokes,
+    //                    function(i, joke) {
+    //                        $taulukko.append('<tr>' + '<th>' + joke.id + '</th>' + '<td>' + joke.type + '</td>' + '<td>' + joke.setup + '</td>' + '<td>' + joke.punchline + '</td>' + '</tr>');
 
-                        });
-                }
-            });
+    //                    });
+    //            }
+    //        });
 
-        });
+    //    });
 
 
 </script>
 
-@*Lomake jolta tiedot Viesti modeliin saadaan. Mietin että tässä olisi ollut varmaan voinut käyttää muutakin kun puhtaita string muuttujia. Esim enum?*@ 
 <div class="row">
-    <h1>Tehtävä 4</h1>
+    <h1>Tehtävä 5</h1>
     <div class="col-md-6">
         <h3>Lomake</h3>
-        @using (Html.BeginForm("Viesti", "Home"))
+        @using (Html.BeginForm("Index", "Home"))
         {
 
             <div class="form-group">
+                @Html.Label("Tuotenumero")
+                @Html.TextBox("Tuotenumero", null, new {@class = "form-control"})
+
+            </div>
+             <div class="form-group">
+                @Html.Label("Kategoria")
+                @Html.TextBox("Kategoria", null, new {@class = "form-control"})
+
+            </div>
+             <div class="form-group">
                 @Html.Label("Nimi")
-                @Html.TextBoxFor(model => model.Nimi, new {@class = "form-control"})
+                @Html.TextBox("Nimi", null, new {@class = "form-control"})
 
             </div>
-            <div class="form-group">
-                <h4>Oletko mies vai nainen?</h4>
-
-                <div class="radio">
-                    <label for="Valinta1">
-                        @Html.RadioButtonFor(model => model.Valinta1, "Olet siis mies joka ", new { @class = "radio-inline", @checked = "true" })
-                        Mies
-                    </label>
-                </div>
-                <div class="radio">
-                    
-                    <label for="Valinta1">
-                        @Html.RadioButtonFor(model => model.Valinta1, "Olet siis nainen joka ", new { @class = "radio-inline" })
-                        Nainen
-                    </label>
-                </div>
+             <div class="form-group">
+                @Html.Label("Hinta")
+                @Html.TextBox("Hinta", null, new {@class = "form-control"})
 
             </div>
-
-            <div class="form-group">
-                <h4>Pidätkö lautapeleistä?</h4>
-
-                <div class="radio">
-                    <label for="Valinta2">
-                        @Html.RadioButtonFor(model => model.Valinta2, "pitää lautapeleistä, ", new { @class = "radio-inline", @checked = "true" })
-                        Kyllä
-                    </label>
-                </div>
-                <div class="radio">
-                    
-                    <label for="Valinta2">
-                        @Html.RadioButtonFor(model => model.Valinta2, "ei pidä lautapeleistä, ", new { @class = "radio-inline" })
-                        En
-                    </label>
-                </div>
+             <div class="form-group">
+                @Html.Label("Kuvaus")
+                @Html.TextBox("Kuvaus", null, new {@class = "form-control"})
 
             </div>
-
-            <div class="form-group">
-                <h4>Lempijuomasi?</h4>
-
-                <div class="radio">
-                    <label for="Valinta3">
-                        @Html.RadioButtonFor(model => model.Valinta3, "rentoutuu oluen kanssa ja", new { @class = "radio-inline", @checked = "true" })
-                        Olut
-                    </label>
-                </div>
-                <div class="radio">
-                    
-                    <label for="Valinta3">
-                        @Html.RadioButtonFor(model => model.Valinta3, "nautiskelee mielellään hyvää viiniä ja", new { @class = "radio-inline" })
-                        Viini
-                    </label>
-                </div>
-                <div class="radio">
-                    
-                    <label for="Valinta3">
-                        @Html.RadioButtonFor(model => model.Valinta3, "tykkää vetää kunnolla vodkaa ja ", new { @class = "radio-inline", @checked = "true" })
-                        Vodka
-                    </label>
-                </div>
-                
-                <div class="radio">
-                    
-                    <label for="Valinta3">
-                        @Html.RadioButtonFor(model => model.Valinta3, "ei pelkää laatudrinkkejä ja ", new { @class = "radio-inline" })
-                        Gin & Tonic
-                    </label>
-                </div>
-
-
-            </div>
-
-            <div class="form-group">
-                <h4>Pidätkö eläimistä?</h4>
-
-                <div class="radio">
-                    <label for="Valinta4">
-                        @Html.RadioButtonFor(model => model.Valinta4, "rakastaa eläimiä.", new { @class = "radio-inline", @checked = "true" })
-                        Kyllä
-                    </label>
-                </div>
-                <div class="radio">
-                    
-                    <label for="Valinta4">
-                        @Html.RadioButtonFor(model => model.Valinta4, "vihaa eläimiä.", new { @class = "radio-inline" })
-                        En
-                    </label>
-                </div>
-
-            </div>
-
-            <div class="form-group">
-                <h4>Olitko rehellinen?</h4>
-
-                <div class="radio">
-                    <label for="Valinta5">
-                        @Html.RadioButtonFor(model => model.Valinta5, "", new { @class = "radio-inline", @checked = "true" })
-                        Kyllä, vannon.
-                    </label>
-                </div>
-                <div class="radio">
-                    
-                    <label for="Valinta5">
-                        @Html.RadioButtonFor(model => model.Valinta5, "(oletettavasti)", new { @class = "radio-inline" })
-                        En, heh heh.
-                    </label>
-                </div>
-
-            </div>
+           
+            
 
 
          
 
 
 
-            <button type="submit" class="btn btn-primary" value="Viesti">Lähetä</button>
+            <button type="submit" class="btn btn-primary" value="Index">Muokkaa</button>
         }
 
 
@@ -215,14 +126,36 @@
         <table class="table table-hover" id="example">
             <thead>
             <tr>
-                <th scope="col">Joke ID</th>
-                <th scope="col">Type</th>
-                <th scope="col">Setup</th>
-                <th scope="col">Punchline</th>
+                <th scope="col">Tuotenumero</th>
+                <th scope="col">Kategoria</th>
+                <th scope="col">Nimi</th>
+                <th scope="col">Hinta</th>
+                <th scope="col">Kuvaus</th>
+                <th scope="col">Muokattu</th>
             </tr>
             </thead>
             <tbody id="taulukko1">
-           
+            @foreach (var t in Model)
+            {
+                <tr>
+                    @*<th scope="row">@t.Tuotenumero</th>*@
+                    @{
+                        var tuotenumero = @t.Tuotenumero.ToString();
+                    }
+                    <th scope="row">@Html.ActionLink(tuotenumero, "Index", "Home", new { id = tuotenumero }, null)</th>
+                    <td>@t.Kategoria</td>
+                    <td>@t.Nimi</td>
+                    <td>@t.Hinta</td>
+                    <td>@t.Kuvaus</td>
+                    <td>@t.Muokattu</td>
+
+
+
+                </tr>
+
+
+
+            }
             </tbody>
             
             

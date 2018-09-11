@@ -9,22 +9,36 @@ namespace Varta_Exercises.Controllers
 {
     public class HomeController : Controller
     {
+        private TuoteDBContext _tuoteDb;
+
+
+        public HomeController()
+        {
+            _tuoteDb = new TuoteDBContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _tuoteDb.Dispose();
+        }
+
+
         public ActionResult Index()
         {
-
-            return View(); 
+            var tuotteet = _tuoteDb.Tuotteet;
+            return View(tuotteet); 
         }
 
         // Lähetetään viesti viewiin täytetty viesti-modeli jonka data on saatu lomakkeesta.
-        [HttpPost]
-        public ActionResult Viesti(Viesti viesti)
-        {
+        //[HttpPost]
+        //public ActionResult Viesti(Viesti viesti)
+        //{
 
            
-            var uusiViesti = viesti; // Tämä on turha.
+        //    var uusiViesti = viesti; // Tämä on turha.
 
-            return View(uusiViesti);
-        }
+        //    return View(uusiViesti);
+        //}
 
         //public ActionResult About()
         //{
