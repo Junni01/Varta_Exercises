@@ -2,11 +2,56 @@
 @model IEnumerable<Varta_Exercises.Models.Henkilo>
 @{ 
     ViewBag.Title = "Varta Exercises";
-    int pisteTotal = 0; // Muuttuja johon lisätään jokaisen henkilö-objektin pisteet.
+   
 }
 
+<script>
+    // Tässä on se input field filter, ei ole nappi vaan kenttä joka suodattaa kirjoitetun tekstin mukaan.
+
+    $(document).ready(
+        function () {
+            $("#filtteri").on("keyup", function() {
+                var arvo = $(this).val().toLocaleLowerCase();
+                $("#taulukko1 tr").filter(function() {
+
+                    $(this).toggle($(this).text().toLowerCase().indexOf(arvo) > - 1)
+
+                });
+
+            });
+
+
+        }
+    );
+    
+    $(document).ready(
+
+        // Tässä haetaan avoimesta rajapinnasta vitsejä taulukkoon.
+        function () {
+
+            var $taulukko = $('#taulukko1');
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_ten',
+                success: function(jokes) {
+                    //console.log('success', jokes);
+                    $.each(jokes,
+                        function(i, joke) {
+                            $taulukko.append('<tr>' + '<th>' + joke.id + '</th>' + '<td>' + joke.type + '</td>' + '<td>' + joke.setup + '</td>' + '<td>' + joke.punchline + '</td>' + '</tr>');
+
+                        });
+                }
+            });
+
+        });
+
+
+</script>
+
+
 <div class="row">
-    <h1>Tehtävä 1</h1>
+    <h1>Tehtävä 3</h1>
     <div class="col-md-6">
         <h3>Lomake</h3>
         <form>
@@ -36,37 +81,18 @@
     </div>
     <div class="col-md-6">
         <h3>Taulukko</h3>
-        <table class="table table-hover">
+        <input id="filtteri" type="text" placeholder="Etsi..."/>
+        <table class="table table-hover" id="example">
             <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Etunimi</th>
-                <th scope="col">Sukunimi</th>
-                <th scope="col">Pisteet</th>
+                <th scope="col">Joke ID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Setup</th>
+                <th scope="col">Punchline</th>
             </tr>
             </thead>
-            <tbody>
-            
-            @foreach (var h in Model) // Henkilöt lista puretaan taulukkoon.
-            {
-                <tr>
-                    <th scope="row">@h.ID</th>    
-                    <td>@h.ENimi</td>   
-                    <td>@h.SNImi</td>
-                    <td>@h.Pisteet</td>
-                </tr>
-                pisteTotal += @h.Pisteet; // Jokaisen henkilön pisteet lisätään pisteTotal-muuttujaan joka kirjoitetaan lopuksi Total-riville.
-            }
-            
-            <tr class="bg-info">
-                <th scope="row">Total</th>
-                <td></td>
-                <td></td>
-                <td>@pisteTotal</td>
-            </tr>
-            
-            
-            
+            <tbody id="taulukko1">
+           
             </tbody>
             
             
