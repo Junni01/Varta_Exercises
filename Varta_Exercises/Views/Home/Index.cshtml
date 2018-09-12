@@ -1,8 +1,11 @@
 ﻿@using System.Activities.Statements
 @using Varta_Exercises.Models
-@model IEnumerable<Varta_Exercises.Models.Tuote>
+@model Tuote
 @{ 
     ViewBag.Title = "Varta Exercises";
+
+   
+
 
 }
 
@@ -51,38 +54,51 @@
 </script>
 
 <div class="row">
-    <h1>Tehtävä 5</h1>
+    <h1>Tehtävä 6</h1>
     <div class="col-md-6">
         <h3>Lomake</h3>
-        @using (Html.BeginForm("Index", "Home"))
+        @using (Html.BeginForm("Talleta", "Home"))
         {
 
             <div class="form-group">
-                @Html.Label("Tuotenumero")
-                @Html.TextBox("Tuotenumero", null, new {@class = "form-control"})
+                @Html.LabelFor(t => t.Tuotenumero)
+                @Html.DisplayTextFor(t => t.Tuotenumero)
+             
 
             </div>
-             <div class="form-group">
-                @Html.Label("Kategoria")
-                @Html.TextBox("Kategoria", null, new {@class = "form-control"})
+              <div class="form-group">
+                @Html.LabelFor(t => t.Nimi)
+                @Html.TextBoxFor(t => t.Nimi, new { @class = "form-control" })
+             
 
             </div>
-             <div class="form-group">
-                @Html.Label("Nimi")
-                @Html.TextBox("Nimi", null, new {@class = "form-control"})
+              <div class="form-group">
+                @Html.LabelFor(t => t.Hinta)
+                @Html.TextBoxFor(t => t.Hinta, new { @class = "form-control" })
+             
+
+            </div>   
+            
+            
+            <div class="form-group">
+                @Html.LabelFor(t => t.Kategoria)
+                @Html.TextBoxFor(t => t.Kategoria, new { @class = "form-control" })
+             
+            </div> 
+
+
+
+
+            
+            <div class="form-group">
+                @Html.LabelFor(t => t.Kuvaus)
+                @Html.TextAreaFor(t => t.Kuvaus, new { @class = "form-control" })
+             
 
             </div>
-             <div class="form-group">
-                @Html.Label("Hinta")
-                @Html.TextBox("Hinta", null, new {@class = "form-control"})
-
-            </div>
-             <div class="form-group">
-                @Html.Label("Kuvaus")
-                @Html.TextBox("Kuvaus", null, new {@class = "form-control"})
-
-            </div>
-           
+             
+           @Html.HiddenFor(t => t.Muokattu);
+            @Html.HiddenFor(t => t.Tuotenumero);
             
 
 
@@ -90,7 +106,7 @@
 
 
 
-            <button type="submit" class="btn btn-primary" value="Index">Muokkaa</button>
+            <button type="submit" class="btn btn-primary" value="Talleta">Muokkaa</button>
         }
 
 
@@ -135,14 +151,16 @@
             </tr>
             </thead>
             <tbody id="taulukko1">
-            @foreach (var t in Model)
+            @foreach (var t in ViewBag.tuotteet)
             {
                 <tr>
-                    @*<th scope="row">@t.Tuotenumero</th>*@
+                    @**<th scope="row">@t.Tuotenumero</th>*@
                     @{
                         var tuotenumero = @t.Tuotenumero.ToString();
+                        
                     }
-                    <th scope="row">@Html.ActionLink(tuotenumero, "Index", "Home", new { id = tuotenumero }, null)</th>
+                    
+                    <th scope="row">@Html.ActionLink((string)tuotenumero, "Index", "Home", new { id = tuotenumero }, null)</th>
                     <td>@t.Kategoria</td>
                     <td>@t.Nimi</td>
                     <td>@t.Hinta</td>

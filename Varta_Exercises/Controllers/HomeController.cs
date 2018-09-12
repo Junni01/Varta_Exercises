@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Varta_Exercises.Models;
 
 namespace Varta_Exercises.Controllers
@@ -23,22 +24,50 @@ namespace Varta_Exercises.Controllers
         }
 
 
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var tuotteet = _tuoteDb.Tuotteet;
-            return View(tuotteet); 
+
+            Tuote valittu;
+
+            if (!(id == null))
+            {
+               valittu = _tuoteDb.Tuotteet.SingleOrDefault(t => t.Tuotenumero == id);
+                
+              
+
+            } else
+            {
+              valittu = new Tuote { Tuotenumero = 0, Nimi = " ", Kategoria = " ", Muokattu = DateTime.Now, Kuvaus = " ", Hinta = 0 };
+            }
+ 
+
+
+            
+
+            ViewBag.tuotteet = _tuoteDb.Tuotteet;
+            return View(valittu); 
         }
 
+
+
+
         // Lähetetään viesti viewiin täytetty viesti-modeli jonka data on saatu lomakkeesta.
-        //[HttpPost]
-        //public ActionResult Viesti(Viesti viesti)
-        //{
+        [HttpPost]
+        public ActionResult Talleta(Tuote tuote)
+        {
+            if (!(tuote.Tuotenumero == 0)) {
+                var paivitettavaTuote = _tuoteDb.Tuotteet.Single(t => t.Tuotenumero == tuote.Tuotenumero);
 
-           
-        //    var uusiViesti = viesti; // Tämä on turha.
+                TryUpdateModel(paivitettavaTuote);
 
-        //    return View(uusiViesti);
-        //}
+                _tuoteDb.SaveChanges();
+
+            }
+
+            
+
+            return RedirectToAction("Index", "Home");
+        }
 
         //public ActionResult About()
         //{
