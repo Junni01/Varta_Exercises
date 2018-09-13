@@ -1,0 +1,19 @@
+API ohje
+
+Endpointit ovat seuraavat:
+
+/Api/Tuotteet 
+
+Palauttaa koko listan tuotteista
+
+/Api/Tuotteet/<tuotenumero>
+
+Palauttaa annetun tuotenumeron perusteella tietokannasta tuotteen
+
+/Api/Tuotteet?nimi=<hakusana>
+
+Hakee tuotteita nimen perusteella ja palauttaa tuotteet joiden nimi sisältää hakusanan
+
+/Api/Tuotteet?alaraja=<arvo>&ylaraja=<arvo>
+
+Hakee tuotteita hinnan perusteella, ensimmäiseen parametriin annetaan alin haluttu hinta ja toiseen hinnan yläraja.
